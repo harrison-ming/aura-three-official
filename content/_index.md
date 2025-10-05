@@ -17,7 +17,7 @@ header_button_more:
 
 ---
 
-{{< stripe_button price_id="price_1SEvD0Icuszw748DmM64CZnQ" label="🛒 Purchase Now - Claim Your Blessing" size="large" >}}
+{{< stripe_button price_id="price_1SEwPkIcuszw748DRbmRKmCG" label="🛒 Purchase Now - Claim Your Blessing" size="large" >}}
 
 ---
 
