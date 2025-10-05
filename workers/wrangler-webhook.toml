@@ -1,0 +1,16 @@
+name = "aura-webhook"
+main = "webhook.js"
+compatibility_date = "2024-01-01"
+
+# Custom domain for Webhook
+routes = [
+  { pattern = "webhook.new-vansky.com", custom_domain = true }
+]
+
+# Environment variables (DO NOT commit secrets here)
+# STRIPE_WEBHOOK_SECRET = "whsec_..." # Set via: wrangler secret put STRIPE_WEBHOOK_SECRET --config wrangler-webhook.toml
+
+# Optional: KV namespace for order storage
+# [[kv_namespaces]]
+# binding = "ORDERS"
+# id = "your_kv_namespace_id"

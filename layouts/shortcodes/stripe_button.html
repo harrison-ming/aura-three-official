@@ -20,32 +20,50 @@
 </div>
 
 {{- if $priceId -}}
-<!-- Stripe Checkout Script -->
+<!-- Stripe Checkout via Cloudflare Worker -->
 <script src="https://js.stripe.com/v3/"></script>
 <script>
   (function() {
-    // 从站点配置中获取Stripe公钥，如果没有则使用测试密钥
-    var publishableKey = '{{ site.Params.stripe.publishable_key | default "pk_test_YOUR_KEY_HERE" }}';
-    var stripe = Stripe(publishableKey);
     var checkoutButton = document.getElementById('checkout-button-{{ $priceId }}');
+    var workerUrl = '{{ site.Params.stripe.worker_url | default "https://aura-checkout.YOUR-SUBDOMAIN.workers.dev" }}';
 
-    checkoutButton.addEventListener('click', function() {
+    checkoutButton.addEventListener('click', async function() {
       // 显示加载状态
       checkoutButton.disabled = true;
       checkoutButton.innerHTML = 'Loading...';
 
-      stripe.redirectToCheckout({
-        lineItems: [{price: '{{ $priceId }}', quantity: 1}],
-        mode: '{{ $mode }}',
-        successUrl: window.location.origin + '/success',
-        cancelUrl: window.location.origin + '/cancel',
-      }).then(function (result) {
-        if (result.error) {
-          alert(result.error.message);
-          checkoutButton.disabled = false;
-          checkoutButton.innerHTML = '{{ $label }}';
+      try {
+        // 调用 Cloudflare Worker 创建 Checkout Session
+        const response = await fetch(workerUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            priceId: '{{ $priceId }}',
+            quantity: 1,
+            // 可选: 添加客户邮箱和订单元数据
+            // customerEmail: 'customer@example.com',
+            // metadata: { orderId: 'ORDER-123' }
+          }),
+        });
+
+        if (!response.ok) {
+          const error = await response.json();
+          throw new Error(error.error || 'Failed to create checkout session');
         }
-      });
+
+        const { url } = await response.json();
+
+        // 重定向到 Stripe Checkout
+        window.location.href = url;
+
+      } catch (error) {
+        console.error('Checkout error:', error);
+        alert('支付初始化失败: ' + error.message);
+        checkoutButton.disabled = false;
+        checkoutButton.innerHTML = '{{ $label }}';
+      }
     });
   })();
 </script>

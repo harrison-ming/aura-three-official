@@ -1,4 +1,4 @@
-baseURL = "https://aura-three-official.pages.dev"
+baseURL = "https://new-vansky.com"
 
 # This is a "one page"-website, so we do not need these kinds of pages...
 disableKinds = ["section", "taxonomy", "term", "RSS", "robotsTXT", "404"]
@@ -55,6 +55,7 @@ title = "Celestial Decree of Triple Blessings"
 
     [params.stripe]
         publishable_key = "pk_live_51Ln9SpIcuszw748DvFY0xWll0rFd22NBnqy2FPTzgVMLJO3klhIZc8YBfihn8woA2e5ysKKV3LIBDSEoLEyB4sF5004oYeCLqU"
+        worker_url = "https://api.new-vansky.com"
 
 # Tailwind CSS build configuration for Hugo.
 # See https://gohugo.io/functions/css/tailwindcss.
