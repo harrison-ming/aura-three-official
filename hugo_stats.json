@@ -130,6 +130,7 @@
       "w-full"
     ],
     "ids": [
+      "-thank-you-for-your-purchase",
       "1-acceptance-of-terms",
       "10-contact-information",
       "2-use-license",
@@ -179,7 +180,9 @@
       "main",
       "message",
       "name",
+      "order-details",
       "partial-refunds",
+      "payment-cancelled",
       "payment-processing",
       "personal-information",
       "pricing",
@@ -196,7 +199,9 @@
       "the-story-of-grace",
       "third-party-services",
       "website-credits",
+      "what-would-you-like-to-do",
       "what-youll-experience",
+      "whats-next",
       "your-moment-is-now",
       "your-rights"
     ]
