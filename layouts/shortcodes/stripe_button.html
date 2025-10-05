@@ -1,0 +1,62 @@
+{{- $priceId := .Get "price_id" | default "" -}}
+{{- $label := .Get "label" | default "Buy Now" -}}
+{{- $mode := .Get "mode" | default "payment" -}}
+{{- $size := .Get "size" | default "normal" -}}
+{{- $btnClass := "inline-block px-8 py-4 text-white font-bold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl" -}}
+{{- if eq $size "large" -}}
+  {{- $btnClass = "inline-block px-12 py-6 text-xl text-white font-bold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl" -}}
+{{- end -}}
+
+<div class="text-center my-8">
+  <button
+    id="checkout-button-{{ $priceId }}"
+    class="{{ $btnClass }} bg-green-600 hover:bg-green-700"
+    style="background-color: #3FA026;"
+    onmouseover="this.style.backgroundColor='#5ED54B'"
+    onmouseout="this.style.backgroundColor='#3FA026'"
+  >
+    {{ $label }}
+  </button>
+</div>
+
+{{- if $priceId -}}
+<!-- Stripe Checkout Script -->
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+  (function() {
+    // 从站点配置中获取Stripe公钥，如果没有则使用测试密钥
+    var publishableKey = '{{ site.Params.stripe.publishable_key | default "pk_test_YOUR_KEY_HERE" }}';
+    var stripe = Stripe(publishableKey);
+    var checkoutButton = document.getElementById('checkout-button-{{ $priceId }}');
+
+    checkoutButton.addEventListener('click', function() {
+      // 显示加载状态
+      checkoutButton.disabled = true;
+      checkoutButton.innerHTML = 'Loading...';
+
+      stripe.redirectToCheckout({
+        lineItems: [{price: '{{ $priceId }}', quantity: 1}],
+        mode: '{{ $mode }}',
+        successUrl: window.location.origin + '/success',
+        cancelUrl: window.location.origin + '/cancel',
+      }).then(function (result) {
+        if (result.error) {
+          alert(result.error.message);
+          checkoutButton.disabled = false;
+          checkoutButton.innerHTML = '{{ $label }}';
+        }
+      });
+    });
+  })();
+</script>
+{{- else -}}
+<!-- 没有提供price_id，显示占位按钮 -->
+<script>
+  (function() {
+    var button = document.getElementById('checkout-button-');
+    button.addEventListener('click', function() {
+      alert('请在 hugo.toml 中配置 Stripe API 密钥，并在 shortcode 中提供 price_id 参数');
+    });
+  })();
+</script>
+{{- end -}}
