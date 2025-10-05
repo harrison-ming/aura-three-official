@@ -17,12 +17,12 @@ header_button_more:
 
 ---
 
-<div class="text-center my-8">
+<div class="text-center my-12">
   <a href="/checkout"
-     class="inline-block px-12 py-6 text-xl text-white font-bold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl"
-     style="background-color: #3FA026; text-decoration: none;"
-     onmouseover="this.style.backgroundColor='#5ED54B'"
-     onmouseout="this.style.backgroundColor='#3FA026'">
+     class="inline-block px-16 py-8 text-2xl text-white font-bold rounded-xl transition-all duration-300 shadow-2xl hover:shadow-2xl transform hover:scale-105"
+     style="background: linear-gradient(135deg, #3FA026 0%, #5ED54B 100%); text-decoration: none; border: 3px solid #2D7A1A;"
+     onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 25px 50px -12px rgba(63, 160, 38, 0.5)'"
+     onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 20px 25px -5px rgba(0, 0, 0, 0.1)'">
     🛒 Purchase Now - Claim Your Blessing
   </a>
 </div>
