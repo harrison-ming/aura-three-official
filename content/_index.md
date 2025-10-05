@@ -17,7 +17,15 @@ header_button_more:
 
 ---
 
-{{< stripe_button price_id="price_1SEwPkIcuszw748DRbmRKmCG" label="🛒 Purchase Now - Claim Your Blessing" size="large" >}}
+<div class="text-center my-8">
+  <a href="/checkout"
+     class="inline-block px-12 py-6 text-xl text-white font-bold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl"
+     style="background-color: #3FA026; text-decoration: none;"
+     onmouseover="this.style.backgroundColor='#5ED54B'"
+     onmouseout="this.style.backgroundColor='#3FA026'">
+    🛒 Purchase Now - Claim Your Blessing
+  </a>
+</div>
 
 ---
 

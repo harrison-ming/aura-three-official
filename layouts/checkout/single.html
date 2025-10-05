@@ -1,0 +1,180 @@
+{{ define "main" }}
+<div class="checkout-container" style="max-width: 1200px; margin: 0 auto; padding: 2rem;">
+
+  <!-- Header -->
+  <div class="checkout-header" style="text-align: center; margin-bottom: 3rem;">
+    <h1 style="font-size: 2rem; margin-bottom: 0.5rem;">🔒 {{ .Title }}</h1>
+    <p style="color: #666;">Complete your order securely</p>
+  </div>
+
+  <div class="checkout-content" style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;">
+
+    <!-- Left Column: Product Info & Features -->
+    <div class="product-section">
+
+      <!-- Product Image & Name -->
+      <div class="product-info" style="margin-bottom: 2rem;">
+        <img src="{{ .Params.product_image }}" alt="{{ .Params.product_name }}"
+             style="width: 100%; max-width: 400px; border-radius: 8px; margin-bottom: 1rem;">
+        <h2 style="font-size: 1.5rem; margin-bottom: 0.5rem;">{{ .Params.product_name }}</h2>
+        <div style="color: #666; margin-bottom: 1rem;">
+          ⭐⭐⭐⭐⭐ <span>({{ len .Params.testimonials }} reviews)</span>
+        </div>
+      </div>
+
+      <!-- Features -->
+      <div class="features" style="background: #f9fafb; padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+        <h3 style="font-size: 1.25rem; margin-bottom: 1rem;">What's Included</h3>
+        <ul style="list-style: none; padding: 0;">
+          {{ range .Params.features }}
+          <li style="margin-bottom: 0.75rem; padding-left: 0;">{{ . | markdownify }}</li>
+          {{ end }}
+        </ul>
+      </div>
+
+      <!-- Guarantees -->
+      <div class="guarantees" style="background: #fef5c4; padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem; border-left: 4px solid #facc15;">
+        <h3 style="font-size: 1.25rem; margin-bottom: 1rem;">Our Guarantee</h3>
+        <ul style="list-style: none; padding: 0;">
+          {{ range .Params.guarantees }}
+          <li style="margin-bottom: 0.75rem; padding-left: 0;">{{ . | markdownify }}</li>
+          {{ end }}
+        </ul>
+      </div>
+
+      <!-- Testimonials -->
+      <div class="testimonials">
+        <h3 style="font-size: 1.25rem; margin-bottom: 1rem;">Customer Reviews</h3>
+        {{ range .Params.testimonials }}
+        <div style="background: #fff; border: 1px solid #e5e7eb; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+          <div style="color: #facc15; margin-bottom: 0.5rem;">
+            {{ range (seq .rating) }}⭐{{ end }}
+          </div>
+          <p style="margin-bottom: 0.5rem;">"{{ .text }}"</p>
+          <p style="color: #666; font-size: 0.875rem;">— {{ .name }}</p>
+        </div>
+        {{ end }}
+      </div>
+
+    </div>
+
+    <!-- Right Column: Order Form -->
+    <div class="order-section">
+
+      <!-- Order Summary -->
+      <div class="order-summary" style="background: #f9fafb; padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+        <h3 style="font-size: 1.25rem; margin-bottom: 1rem;">Order Summary</h3>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+          <span>{{ .Params.product_name }}</span>
+          <span style="font-weight: bold;">${{ .Params.price }}</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; color: #666;">
+          <span>Shipping</span>
+          <span>{{ .Params.shipping }}</span>
+        </div>
+        <hr style="margin: 1rem 0; border: none; border-top: 1px solid #e5e7eb;">
+        <div style="display: flex; justify-content: space-between; font-size: 1.25rem; font-weight: bold;">
+          <span>Total</span>
+          <span style="color: #3FA026;">${{ .Params.price }} {{ .Params.currency }}</span>
+        </div>
+      </div>
+
+      <!-- Payment Form -->
+      <div class="payment-form">
+        <form id="payment-form">
+
+          <!-- Contact Information -->
+          <div style="margin-bottom: 2rem;">
+            <h3 style="font-size: 1.25rem; margin-bottom: 1rem;">Contact Information</h3>
+            <div style="margin-bottom: 1rem;">
+              <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Email</label>
+              <input type="email" id="email" name="email" required
+                     style="width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 6px; font-size: 1rem;"
+                     placeholder="your@email.com">
+            </div>
+            <div style="margin-bottom: 1rem;">
+              <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Full Name</label>
+              <input type="text" id="name" name="name" required
+                     style="width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 6px; font-size: 1rem;"
+                     placeholder="John Doe">
+            </div>
+          </div>
+
+          <!-- Payment Element -->
+          <div style="margin-bottom: 2rem;">
+            <h3 style="font-size: 1.25rem; margin-bottom: 1rem;">Payment Information</h3>
+            <div id="payment-element">
+              <!-- Stripe Payment Element will be inserted here -->
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" id="submit-button"
+                  style="width: 100%; background-color: #3FA026; color: white; padding: 1rem; font-size: 1.125rem; font-weight: bold; border: none; border-radius: 6px; cursor: pointer; transition: background-color 0.3s;">
+            <span id="button-text">Complete Order - ${{ .Params.price }}</span>
+            <span id="button-spinner" style="display: none;">Processing...</span>
+          </button>
+
+          <!-- Error Message -->
+          <div id="payment-message" style="color: #dc2626; margin-top: 1rem; display: none;"></div>
+
+          <!-- Success Message -->
+          <div id="payment-success" style="display: none; background: #d1fae5; color: #065f46; padding: 1rem; border-radius: 6px; margin-top: 1rem; text-align: center;">
+            <h3 style="margin-bottom: 0.5rem;">✅ Payment Successful!</h3>
+            <p>Thank you for your order. You will receive a confirmation email shortly.</p>
+          </div>
+
+        </form>
+
+        <!-- Security Notice -->
+        <div style="text-align: center; margin-top: 1.5rem; color: #666; font-size: 0.875rem;">
+          <p>🔒 Secure payment powered by Stripe</p>
+          <p>Your payment information is encrypted and secure</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- Stripe.js -->
+<script src="https://js.stripe.com/v3/"></script>
+<script src="/js/checkout.js"></script>
+
+<!-- Pass configuration to JavaScript -->
+<script>
+  window.checkoutConfig = {
+    amount: {{ mul .Params.price 100 }}, // Convert to cents
+    currency: '{{ lower .Params.currency }}',
+    productName: '{{ .Params.product_name }}',
+    workerUrl: '{{ site.Params.stripe.worker_url }}',
+    publishableKey: '{{ site.Params.stripe.publishable_key }}'
+  };
+</script>
+
+<!-- Responsive CSS -->
+<style>
+@media (max-width: 768px) {
+  .checkout-content {
+    grid-template-columns: 1fr !important;
+  }
+  .product-section {
+    order: 2;
+  }
+  .order-section {
+    order: 1;
+  }
+}
+
+#submit-button:hover {
+  background-color: #5ED54B !important;
+}
+
+#submit-button:disabled {
+  background-color: #9ca3af !important;
+  cursor: not-allowed !important;
+}
+</style>
+
+{{ end }}

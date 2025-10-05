@@ -29,26 +29,38 @@ export default {
 
     try {
       // Parse request body
-      const { priceId, quantity = 1, customerEmail, metadata } = await request.json();
+      const { amount, currency = 'usd', customerEmail, metadata } = await request.json();
 
-      if (!priceId) {
-        return new Response(JSON.stringify({ error: 'Price ID is required' }), {
+      if (!amount) {
+        return new Response(JSON.stringify({ error: 'Amount is required' }), {
           status: 400,
           headers: { ...corsHeaders, 'Content-Type': 'application/json' }
         });
       }
 
-      // Create Stripe Checkout Session
-      const session = await createCheckoutSession(env.STRIPE_SECRET_KEY, {
-        priceId,
-        quantity,
+      // Check if secret key exists
+      if (!env.STRIPE_SECRET_KEY) {
+        console.error('STRIPE_SECRET_KEY not found in environment');
+        return new Response(JSON.stringify({ error: 'Stripe configuration error' }), {
+          status: 500,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        });
+      }
+
+      console.log('Creating payment intent with amount:', amount, currency);
+
+      // Create Stripe PaymentIntent
+      const paymentIntent = await createPaymentIntent(env.STRIPE_SECRET_KEY, {
+        amount,
+        currency,
         customerEmail,
         metadata,
-        successUrl: 'https://new-vansky.com/success?session_id={CHECKOUT_SESSION_ID}',
-        cancelUrl: 'https://new-vansky.com/cancel',
       });
 
-      return new Response(JSON.stringify({ sessionId: session.id, url: session.url }), {
+      return new Response(JSON.stringify({
+        clientSecret: paymentIntent.client_secret,
+        paymentIntentId: paymentIntent.id
+      }), {
         status: 200,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' }
       });
@@ -64,28 +76,24 @@ export default {
 };
 
 /**
- * Create Stripe Checkout Session
+ * Create Stripe PaymentIntent
  */
-async function createCheckoutSession(secretKey, options) {
+async function createPaymentIntent(secretKey, options) {
   const {
-    priceId,
-    quantity,
+    amount,
+    currency,
     customerEmail,
     metadata = {},
-    successUrl,
-    cancelUrl,
   } = options;
 
   // Prepare form data for Stripe API
   const formData = new URLSearchParams();
-  formData.append('mode', 'payment');
-  formData.append('line_items[0][price]', priceId);
-  formData.append('line_items[0][quantity]', quantity.toString());
-  formData.append('success_url', successUrl);
-  formData.append('cancel_url', cancelUrl);
+  formData.append('amount', amount.toString());
+  formData.append('currency', currency);
+  formData.append('automatic_payment_methods[enabled]', 'true');
 
   if (customerEmail) {
-    formData.append('customer_email', customerEmail);
+    formData.append('receipt_email', customerEmail);
   }
 
   // Add metadata
@@ -94,7 +102,7 @@ async function createCheckoutSession(secretKey, options) {
   });
 
   // Call Stripe API
-  const response = await fetch('https://api.stripe.com/v1/checkout/sessions', {
+  const response = await fetch('https://api.stripe.com/v1/payment_intents', {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${secretKey}`,
