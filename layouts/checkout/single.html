@@ -140,9 +140,8 @@
 
 <!-- Stripe.js -->
 <script src="https://js.stripe.com/v3/"></script>
-<script src="/js/checkout.js"></script>
 
-<!-- Pass configuration to JavaScript -->
+<!-- Pass configuration to JavaScript BEFORE loading checkout.js -->
 <script>
   window.checkoutConfig = {
     amount: {{ mul .Params.price 100 }}, // Convert to cents
@@ -152,6 +151,9 @@
     publishableKey: '{{ site.Params.stripe.publishable_key }}'
   };
 </script>
+
+<!-- Load checkout.js AFTER configuration -->
+<script src="/js/checkout.js"></script>
 
 <!-- Responsive CSS -->
 <style>
