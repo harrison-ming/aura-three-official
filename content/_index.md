@@ -17,6 +17,10 @@ header_button_more:
 
 ---
 
+{{< stripe_button price_id="price_1SEvD0Icuszw748DmM64CZnQ" label="🛒 Purchase Now - Claim Your Blessing" size="large" >}}
+
+---
+
 # Your Prayers Have Been Heard {#about}
 
 Life can feel unfair sometimes.
@@ -47,10 +51,6 @@ Within weeks of receiving her decree:
 - Doors that were closed began to open
 
 _"It felt like the universe finally heard me,"_ Grace recalls. _"For the first time in years, I felt protected and blessed."_
-
----
-
-{{< stripe_button price_id="" label="Claim Your Decree ➤➤" size="large" >}}
 
 ---
 
@@ -99,10 +99,6 @@ Each Celestial Decree is:
 
 Due to the intensive blessing process, only a limited number of decrees can be created each month.
 
-**Current availability: Check below**
-
-{{< stripe_button price_id="" label="Check Availability & Claim Yours" size="large" >}}
-
 ---
 
 # Testimonials
@@ -145,8 +141,6 @@ Your abundance is about to flow.
 Your protection is about to activate.
 
 **All you need to do is claim your decree.**
-
-{{< stripe_button price_id="" label="Claim My Celestial Decree" size="large" >}}
 
 ✓ 30-Day Money-Back Guarantee
 ✓ Authentic Taoist Blessing
