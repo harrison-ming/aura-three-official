@@ -17,6 +17,7 @@ title = "Celestial Decree of Triple Blessings"
     [markup.goldmark]
         [markup.goldmark.renderer]
             hardWraps = true
+            unsafe = true
 
 [params]
     # A "copyright"-line to be added at the bottom of the page.
