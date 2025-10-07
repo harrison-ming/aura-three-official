@@ -6,7 +6,7 @@ layout: "single"
 # Product Information
 product_name: "Celestial Decree of Triple Blessings"
 product_image: "https://stellarview.ca/SITE/blessaura/%E4%BA%8C%E5%AE%98%E8%B5%90%E7%A6%8F%E5%AE%9D%E9%92%9E.jpg"
-price: 29.99
+price: 1.00
 currency: "USD"
 shipping: "Free"
 price_id: "price_1SEwPkIcuszw748DRbmRKmCG"  # Production Price ID
