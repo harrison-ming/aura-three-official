@@ -4,7 +4,7 @@ compatibility_date = "2024-01-01"
 
 # Custom domain for API
 routes = [
-  { pattern = "api.new-vansky.com", custom_domain = true }
+  { pattern = "api.blessaura.com", custom_domain = true }
 ]
 
 # Environment variables (DO NOT commit secrets here)

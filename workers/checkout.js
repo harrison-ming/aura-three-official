@@ -7,9 +7,21 @@
 
 export default {
   async fetch(request, env) {
+    // Get origin from request
+    const origin = request.headers.get('Origin');
+
+    // Allow both production and local development origins
+    const allowedOrigins = [
+      'https://blessaura.com',
+      'http://localhost:1313',
+      'http://localhost:1314'
+    ];
+
+    const corsOrigin = allowedOrigins.includes(origin) ? origin : 'https://blessaura.com';
+
     // CORS headers
     const corsHeaders = {
-      'Access-Control-Allow-Origin': 'https://new-vansky.com',
+      'Access-Control-Allow-Origin': corsOrigin,
       'Access-Control-Allow-Methods': 'POST, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type',
     };

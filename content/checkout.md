@@ -9,6 +9,7 @@ product_image: "https://stellarview.ca/SITE/blessaura/%E4%BA%8C%E5%AE%98%E8%B5%9
 price: 29.99
 currency: "USD"
 shipping: "Free"
+price_id: "price_1SEwPkIcuszw748DRbmRKmCG"  # Production Price ID
 
 # Product Features
 features:

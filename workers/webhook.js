@@ -3,10 +3,13 @@
  *
  * Environment Variables Required:
  * - STRIPE_WEBHOOK_SECRET: Your Stripe webhook signing secret (whsec_...)
+ * - RESEND_API_KEY: Your Resend API key (re_...)
  *
  * Optional: KV Namespace binding for storing orders
  * - ORDERS: KV namespace for order storage
  */
+
+import { getEmailSubject, getEmailHtml, getEmailText } from './email-template.js';
 
 export default {
   async fetch(request, env) {
@@ -139,9 +142,17 @@ async function handleCheckoutCompleted(session, env) {
     );
   }
 
-  // TODO: Send confirmation email
-  // TODO: Update inventory
-  // TODO: Trigger fulfillment process
+  // Send confirmation email
+  if (session.customer_details?.email) {
+    await sendOrderConfirmationEmail({
+      customerEmail: session.customer_details.email,
+      customerName: session.customer_details.name || 'Valued Customer',
+      orderId: session.id,
+      productName: 'Celestial Decree of Triple Blessings',
+      amount: session.amount_total,
+      currency: session.currency,
+    }, env);
+  }
 }
 
 /**
@@ -149,6 +160,23 @@ async function handleCheckoutCompleted(session, env) {
  */
 async function handlePaymentSucceeded(paymentIntent, env) {
   console.log('Payment succeeded:', paymentIntent.id);
+  console.log('Customer email:', paymentIntent.receipt_email);
+  console.log('Amount:', paymentIntent.amount / 100, paymentIntent.currency.toUpperCase());
+
+  // Send confirmation email
+  if (paymentIntent.receipt_email) {
+    // Extract customer name from billing details
+    const customerName = paymentIntent.charges?.data?.[0]?.billing_details?.name || 'Valued Customer';
+
+    await sendOrderConfirmationEmail({
+      customerEmail: paymentIntent.receipt_email,
+      customerName: customerName,
+      orderId: paymentIntent.id,
+      productName: paymentIntent.metadata?.product_name || 'Celestial Decree of Triple Blessings',
+      amount: paymentIntent.amount,
+      currency: paymentIntent.currency,
+    }, env);
+  }
 }
 
 /**
@@ -156,4 +184,67 @@ async function handlePaymentSucceeded(paymentIntent, env) {
  */
 async function handlePaymentFailed(paymentIntent, env) {
   console.log('Payment failed:', paymentIntent.id);
+  // TODO: Send failure notification email (optional)
+}
+
+/**
+ * Send order confirmation email via Resend
+ */
+async function sendOrderConfirmationEmail(orderData, env) {
+  if (!env.RESEND_API_KEY) {
+    console.error('RESEND_API_KEY not configured');
+    return;
+  }
+
+  try {
+    // Format order date
+    const orderDate = new Date().toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      timeZone: 'UTC'
+    });
+
+    const emailData = {
+      ...orderData,
+      orderDate
+    };
+
+    // Prepare email
+    const emailPayload = {
+      from: 'Celestial Decree <orders@blessaura.com>',
+      to: [orderData.customerEmail],
+      subject: getEmailSubject(emailData),
+      html: getEmailHtml(emailData),
+      text: getEmailText(emailData),
+    };
+
+    console.log('Sending email to:', orderData.customerEmail);
+
+    // Call Resend API
+    const response = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${env.RESEND_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(emailPayload),
+    });
+
+    if (!response.ok) {
+      const error = await response.text();
+      throw new Error(`Resend API error: ${error}`);
+    }
+
+    const result = await response.json();
+    console.log('Email sent successfully:', result.id);
+
+    return result;
+
+  } catch (error) {
+    console.error('Failed to send email:', error);
+    // Don't throw - we don't want to fail the webhook if email fails
+  }
 }
