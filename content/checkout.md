@@ -5,11 +5,56 @@ layout: "single"
 
 # Product Information
 product_name: "Celestial Decree of Triple Blessings"
-product_image: "https://stellarview.ca/SITE/blessaura/%E4%BA%8C%E5%AE%98%E8%B5%90%E7%A6%8F%E5%AE%9D%E9%92%9E.jpg"
-price: 1.00
+product_image: "/product/images/real-decree-main.jpg"
 currency: "USD"
-shipping: "Free"
-price_id: "price_1SEwPkIcuszw748DRbmRKmCG"  # Production Price ID
+shipping: "Free Worldwide Shipping"
+
+# Pricing Plans
+plans:
+  single:
+    name: "Single Decree"
+    description: "Perfect for personal blessing"
+    price: 99
+    original_price: 198
+    quantity: 1
+    price_id: "price_1SGUthIcuszw748DGbHNrv99"
+    savings: 99
+    features:
+      - "1 Celestial Decree"
+      - "Handcrafted & Blessed"
+      - "Divine Protection"
+      - "30-Day Money-Back Guarantee"
+      - "Free Worldwide Shipping"
+  family:
+    name: "Family Protection Pack"
+    description: "Bless your home and loved ones"
+    price: 169
+    original_price: 396
+    quantity: 2
+    price_id: "price_1SGUuYIcuszw748DTrn8p4rc"
+    savings: 227
+    badge: "MOST POPULAR"
+    features:
+      - "2 Celestial Decrees"
+      - "Double the Blessings"
+      - "Protect Multiple Spaces"
+      - "30-Day Money-Back Guarantee"
+      - "Free Worldwide Shipping"
+  ultimate:
+    name: "Ultimate Abundance Pack"
+    description: "Maximum protection for your entire household"
+    price: 249
+    original_price: 594
+    quantity: 3
+    price_id: "price_1SGUvBIcuszw748DTCDeq3Zu"
+    savings: 345
+    badge: "MAXIMUM ENERGY"
+    features:
+      - "3 Celestial Decrees"
+      - "Triple Divine Energy"
+      - "Complete Home Protection"
+      - "30-Day Money-Back Guarantee"
+      - "Free Worldwide Shipping"
 
 # Product Features
 features:

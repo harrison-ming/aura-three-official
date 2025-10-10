@@ -1,0 +1,62 @@
+{
+  "hero_decree_main": {
+    "description": "首屏主图 - 三官赐福宝钞戏剧性展示",
+    "prompt": "Ultra high quality product photography of golden Chinese imperial decree (宝钞/三官赐福), ancient calligraphy with traditional red seals, ornate paper texture with cloud patterns and dragon motifs, golden borders, displayed on elegant wooden stand with dramatic side lighting creating golden glow, mystical atmosphere, black background, professional luxury product shot, 8k resolution, cinematic lighting.",
+    "aspect_ratio": "16:9",
+    "filename": "hero-decree-main.jpg"
+  },
+  "decree_detail_closeup": {
+    "description": "宝钞细节特写 - 壹万貫文字",
+    "prompt": "Extreme close-up macro photography of Chinese imperial decree showing '壹万貫' (One Thousand Strings of Gold) inscription in traditional calligraphy, intricate brush strokes visible, red official seals, aged paper texture with gold accents, professional document photography, shallow depth of field, warm golden lighting highlighting the characters.",
+    "aspect_ratio": "1:1",
+    "filename": "decree-detail-closeup.jpg"
+  },
+  "sarah_portrait": {
+    "description": "Sarah肖像 - 幸福的单亲妈妈",
+    "prompt": "Photorealistic portrait of relieved and happy woman in her mid-30s named Sarah, single mother, genuine warm smile with a hint of emotional tears of joy, sitting at cozy home, casual comfortable attire, soft natural window lighting, modern American interior, sense of peace and gratitude, authentic lifestyle portrait style.",
+    "aspect_ratio": "3:4",
+    "filename": "sarah-portrait.jpg"
+  },
+  "sarah_before_struggle": {
+    "description": "Sarah转变前 - 债务困境",
+    "prompt": "Tired woman in her 30s sitting at home desk late evening, family photos on desk, stack of unpaid bills and financial documents scattered, calculator and coffee cup, exhausted but determined expression, warm but dim overhead lighting, children's backpacks visible in background corner, realistic documentary style, authentic struggle.",
+    "aspect_ratio": "16:9",
+    "filename": "sarah-before-struggle.jpg"
+  },
+  "sarah_phone_moment": {
+    "description": "Sarah转折点 - 接到律师电话震惊",
+    "prompt": "Dramatic photo of woman in her 30s in shock receiving life-changing phone call at home, holding cellphone with trembling hands, eyes wide with disbelief turning to tears of joy, emotional reaction captured mid-moment, living room setting with afternoon natural light, photorealistic, cinematic depth of field, authentic emotion.",
+    "aspect_ratio": "4:3",
+    "filename": "sarah-phone-moment.jpg"
+  },
+  "michael_portrait": {
+    "description": "Michael肖像 - 成功的园林商人",
+    "prompt": "Professional portrait of confident 40-year-old businessman named Michael, landscaping business owner, genuine smile showing success and prosperity, smart casual attire, modern office background, natural lighting, authentic business portrait style, approachable and successful vibe.",
+    "aspect_ratio": "3:4",
+    "filename": "michael-portrait.jpg"
+  },
+  "michael_before_struggle": {
+    "description": "Michael转变前 - 事业低谷",
+    "prompt": "Photo of tired business owner in his late 30s at small office desk with landscaping business paperwork, worried expression looking at unpaid invoices and bills, calculator and coffee, early morning dim light, documentary style, authentic small business struggle, realistic lighting.",
+    "aspect_ratio": "16:9",
+    "filename": "michael-before-struggle.jpg"
+  },
+  "michael_success_contract": {
+    "description": "Michael转变后 - 签约成功",
+    "prompt": "Cinematic photo of professional man in his 40s shaking hands in modern bright office, business contract on table, confident posture and genuine smile, large windows with natural light, success and major opportunity theme, corporate photography style, sense of achievement.",
+    "aspect_ratio": "16:9",
+    "filename": "michael-success-contract.jpg"
+  },
+  "three_officials_concept": {
+    "description": "三官大帝概念图 - 神秘东方",
+    "prompt": "Artistic visualization of Three Chinese Officials (三官大帝): Heavenly Official (天官), Earthly Official (地官), and Water Official (水官), traditional Chinese deity imagery merged with mystical energy, flowing golden light and cosmic elements, ancient Taoist symbolism, sacred geometry patterns, red and gold color scheme, ornate traditional robes and celestial atmosphere, spiritual and powerful aesthetic, digital art style with traditional Chinese painting influences.",
+    "aspect_ratio": "16:9",
+    "filename": "three-officials-concept.jpg"
+  },
+  "testimonials_montage": {
+    "description": "用户评价蒙太奇 - 多样化快乐人群",
+    "prompt": "Collage-style montage of diverse happy people of different ages, genders and ethnicities, genuine smiles and positive expressions, various lifestyle settings (home, office, outdoor), authentic customer testimonial photos aesthetic, natural lighting, real people feel, inspiring and relatable composition.",
+    "aspect_ratio": "16:9",
+    "filename": "testimonials-montage.jpg"
+  }
+}

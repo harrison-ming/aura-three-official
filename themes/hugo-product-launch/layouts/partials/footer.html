@@ -22,3 +22,8 @@
     </div>
   </div>
 </footer>
+
+<!-- Social Proof Notifications - Only on homepage -->
+{{ if .IsHome }}
+<script src="/js/social-proof.js?v={{ now.Unix }}"></script>
+{{ end }}

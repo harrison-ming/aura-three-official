@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Patricia Green",
+    "prompt": "Professional headshot of woman in her 40s, friendly smile, \nbusiness casual attire, natural lighting, authentic social media profile photo style.",
+    "filename": "avatar-patricia.jpg"
+  },
+  {
+    "name": "Rachel Turner",
+    "prompt": "Casual portrait of woman in her 30s, warm expression, \noutdoor natural lighting, genuine candid photo style.",
+    "filename": "avatar-rachel.jpg"
+  },
+  {
+    "name": "Gloria White",
+    "prompt": "Portrait of elegant woman in her 50s, confident posture, \nprofessional headshot, studio lighting.",
+    "filename": "avatar-gloria.jpg"
+  },
+  {
+    "name": "Tyler Brooks",
+    "prompt": "Professional photo of man in his 30s, business attire, \nfriendly approachable expression, corporate headshot style.",
+    "filename": "avatar-tyler.jpg"
+  },
+  {
+    "name": "Nancy Fisher",
+    "prompt": "Casual portrait of woman in her late 40s, reading glasses, \nwarm smile, home office background.",
+    "filename": "avatar-nancy.jpg"
+  },
+  {
+    "name": "Michael Tran",
+    "prompt": "Professional headshot of Asian-American man in his 30s, \nconfident smile, modern business setting.",
+    "filename": "avatar-michael.jpg"
+  },
+  {
+    "name": "Karen Phillips",
+    "prompt": "Portrait of woman in her 40s, casual professional style, \nnatural daylight, authentic social media photo.",
+    "filename": "avatar-karen.jpg"
+  },
+  {
+    "name": "Jessica Harper",
+    "prompt": "Lifestyle photo of woman in her 30s, casual attire, \nbright natural lighting, genuine expression.",
+    "filename": "avatar-jessica.jpg"
+  },
+  {
+    "name": "Evelyn Clark",
+    "prompt": "Professional portrait of mature woman in her 60s, \nelegant appearance, studio photography.",
+    "filename": "avatar-evelyn.jpg"
+  },
+  {
+    "name": "Matthew Parker",
+    "prompt": "Headshot of man in his 40s, casual business attire, \nfriendly professional appearance.",
+    "filename": "avatar-matthew.jpg"
+  },
+  {
+    "name": "Helen Carter",
+    "prompt": "Portrait of woman in her 50s, warm motherly expression, \nhome setting, natural lighting.",
+    "filename": "avatar-helen.jpg"
+  },
+  {
+    "name": "James Foster",
+    "prompt": "Professional photo of man in his late 30s, smart casual style, \nconfident yet approachable demeanor.",
+    "filename": "avatar-james-foster.jpg"
+  }
+]

@@ -61,21 +61,63 @@
     <!-- Right Column: Order Form -->
     <div class="order-section">
 
+      <!-- STEP 1: Plan Selection -->
+      <div class="plan-selection" style="background: #f9fafb; padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+        <h3 style="font-size: 1.25rem; margin-bottom: 1.5rem; font-weight: bold;">STEP 1: SELECT YOUR BLESSING</h3>
+
+        {{ range $key, $value := .Params.plans }}
+        <div class="plan-option {{ if eq $key "family" }}plan-popular{{ end }}"
+             data-plan="{{ $key }}"
+             style="margin-bottom: 1rem; padding: 1rem; border: 2px solid #e5e7eb; border-radius: 8px; cursor: pointer; transition: all 0.3s; {{ if eq $key "family" }}background: #fef5c4; border-color: #f4cc5e;{{ end }}">
+          <label style="display: flex; align-items: center; cursor: pointer; width: 100%;">
+            <input type="radio" name="plan" value="{{ $key }}"
+                   {{ if eq $key "family" }}checked{{ end }}
+                   style="margin-right: 1rem; width: 20px; height: 20px; cursor: pointer;">
+            <div style="flex: 1;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.25rem;">
+                <span style="font-weight: bold; font-size: 1.125rem;">{{ $value.quantity }}x Celestial Decree{{ if gt $value.quantity 1 }}s{{ end }}</span>
+                <div style="text-align: right;">
+                  <span style="text-decoration: line-through; color: #999; font-size: 0.875rem; margin-right: 0.5rem;">${{ $value.original_price }}</span>
+                  <span style="color: #3FA026; font-weight: bold; font-size: 1.25rem;">${{ $value.price }}</span>
+                </div>
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="color: #666; font-size: 0.875rem;">{{ $value.description }}</span>
+                {{ if $value.badge }}
+                <span style="background: #dc2626; color: white; padding: 0.125rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: bold;">{{ $value.badge }}</span>
+                {{ end }}
+              </div>
+              <div style="color: #3FA026; font-size: 0.875rem; font-weight: bold; margin-top: 0.25rem;">
+                Save ${{ $value.savings }}{{ if gt $value.quantity 1 }} - ${{ div $value.price $value.quantity }} each{{ end }}
+              </div>
+            </div>
+          </label>
+        </div>
+        {{ end }}
+
+        <p style="text-align: center; color: #666; font-size: 0.875rem; margin-top: 1rem;">
+          All Prices Are In USD<br>
+          Buy multiple units and save even more!
+        </p>
+      </div>
+
       <!-- Order Summary -->
       <div class="order-summary" style="background: #f9fafb; padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
         <h3 style="font-size: 1.25rem; margin-bottom: 1rem;">Order Summary</h3>
+
         <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-          <span>{{ .Params.product_name }}</span>
-          <span style="font-weight: bold;">${{ .Params.price }}</span>
+          <span id="summary-plan-name">Loading...</span>
+          <span id="summary-plan-price" style="font-weight: bold;">$0</span>
         </div>
+
         <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; color: #666;">
           <span>Shipping</span>
           <span>{{ .Params.shipping }}</span>
         </div>
         <hr style="margin: 1rem 0; border: none; border-top: 1px solid #e5e7eb;">
-        <div style="display: flex; justify-content: space-between; font-size: 1.25rem; font-weight: bold;">
+        <div style="display: flex; justify-content: space-between; font-size: 1.5rem; font-weight: bold;">
           <span>Total</span>
-          <span style="color: #3FA026;">${{ .Params.price }} {{ .Params.currency }}</span>
+          <span id="summary-total-price" style="color: #3FA026;">$0 {{ .Params.currency }}</span>
         </div>
       </div>
 
@@ -85,7 +127,7 @@
 
           <!-- Contact Information -->
           <div style="margin-bottom: 2rem;">
-            <h3 style="font-size: 1.25rem; margin-bottom: 1rem;">Contact Information</h3>
+            <h3 style="font-size: 1.25rem; margin-bottom: 1rem; font-weight: bold;">STEP 2: CUSTOMER INFORMATION</h3>
             <div style="margin-bottom: 1rem;">
               <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">
                 Email <span style="color: #dc2626;">*</span>
@@ -109,7 +151,7 @@
 
           <!-- Payment Element -->
           <div style="margin-bottom: 2rem;">
-            <h3 style="font-size: 1.25rem; margin-bottom: 1rem;">Payment Information</h3>
+            <h3 style="font-size: 1.25rem; margin-bottom: 1rem; font-weight: bold;">STEP 3: PAYMENT METHOD</h3>
             <div id="payment-element">
               <!-- Stripe Payment Element will be inserted here -->
             </div>
@@ -118,7 +160,7 @@
           <!-- Submit Button -->
           <button type="submit" id="submit-button"
                   style="width: 100%; background-color: #3FA026; color: white; padding: 1rem; font-size: 1.125rem; font-weight: bold; border: none; border-radius: 6px; cursor: pointer; transition: background-color 0.3s;">
-            <span id="button-text">Complete Order - ${{ .Params.price }}</span>
+            <span id="button-text">Complete Order</span>
             <span id="button-spinner" style="display: none;">Processing...</span>
           </button>
 
@@ -151,16 +193,34 @@
 <!-- Pass configuration to JavaScript BEFORE loading checkout.js -->
 <script>
   window.checkoutConfig = {
-    amount: {{ mul .Params.price 100 }}, // Convert to cents
     currency: '{{ lower .Params.currency }}',
     productName: '{{ .Params.product_name }}',
     workerUrl: '{{ site.Params.stripe.worker_url }}',
-    publishableKey: '{{ site.Params.stripe.publishable_key }}'
+    publishableKey: '{{ site.Params.stripe.publishable_key }}',
+    plans: {
+      {{ range $key, $value := .Params.plans }}
+      {{ $key }}: {
+        name: '{{ $value.name }}',
+        description: '{{ $value.description }}',
+        price: {{ $value.price }},
+        original_price: {{ $value.original_price }},
+        quantity: {{ $value.quantity }},
+        price_id: '{{ $value.price_id }}',
+        savings: {{ $value.savings }},
+        badge: '{{ $value.badge }}',
+        features: [
+          {{ range $value.features }}
+          '{{ . }}',
+          {{ end }}
+        ]
+      },
+      {{ end }}
+    }
   };
 </script>
 
 <!-- Load checkout.js AFTER configuration -->
-<script src="/js/checkout.js"></script>
+<script src="/js/checkout.js?v={{ now.Unix }}"></script>
 
 <!-- Responsive CSS -->
 <style>
@@ -183,6 +243,40 @@
 #submit-button:disabled {
   background-color: #9ca3af !important;
   cursor: not-allowed !important;
+}
+
+/* Plan selection styles */
+.plan-option:hover {
+  border-color: #3FA026 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(63, 160, 38, 0.15);
+}
+
+.plan-option input[type="radio"]:checked ~ div {
+  color: #000;
+}
+
+.plan-option input[type="radio"]:checked {
+  accent-color: #3FA026;
+}
+
+/* Popular plan highlight */
+.plan-popular {
+  position: relative;
+}
+
+.plan-popular::before {
+  content: "⭐ MOST POPULAR";
+  position: absolute;
+  top: -10px;
+  right: 10px;
+  background: #dc2626;
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  z-index: 1;
 }
 </style>
 

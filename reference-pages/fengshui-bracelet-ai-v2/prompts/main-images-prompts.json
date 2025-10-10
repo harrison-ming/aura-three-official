@@ -1,0 +1,110 @@
+{
+  "hero_image": {
+    "description": "首屏主图 - 中奖彩票特写",
+    "prompt": "Photorealistic close-up of a winning lottery ticket on a wooden table, \nsurrounded by golden light rays. A elegant obsidian bracelet with gold Pixiu charm \nplaced next to the ticket. Warm, cinematic lighting. \nStyle: High-quality product photography, professional, inspiring.",
+    "aspect_ratio": "16:9",
+    "filename": "hero-lottery-ticket.jpg"
+  },
+  "female_protagonist": {
+    "description": "女主角Emma - 快乐的客服代表",
+    "prompt": "Photorealistic portrait of a happy 35-year-old woman named Emma, \nprofessional customer service representative, sitting at home office desk, \ngenuine smile, warm lighting, casual professional attire. \nModern American home interior. Natural, authentic photo style.",
+    "aspect_ratio": "3:4",
+    "filename": "emma-portrait.jpg"
+  },
+  "female_before": {
+    "description": "女主角转变前 - 疲惫工作",
+    "prompt": "Cinematic photo of tired woman in her 30s at office cubicle, \nstressed expression, late evening, overhead fluorescent lighting, \nstack of paperwork, coffee cup. Muted colors, documentary style.",
+    "aspect_ratio": "16:9",
+    "filename": "emma-before-struggle.jpg"
+  },
+  "lottery_win_moment": {
+    "description": "中奖时刻 - 震惊表情",
+    "prompt": "Photorealistic image of woman in shock and disbelief, \nholding lottery ticket with trembling hands, tears of joy, \nemotional moment, warm indoor lighting. Cinematic, authentic emotion.",
+    "aspect_ratio": "4:3",
+    "filename": "lottery-win-moment.jpg"
+  },
+  "bracelet_product_1": {
+    "description": "产品特写1 - 黑曜石手链",
+    "prompt": "Ultra high quality product photography of black obsidian bracelet \nwith golden Pixiu charm, placed on white marble surface, \nsoft professional lighting, luxury product shot, \nintricate details visible, 8k resolution.",
+    "aspect_ratio": "1:1",
+    "filename": "bracelet-product-closeup-1.jpg"
+  },
+  "bracelet_product_2": {
+    "description": "产品特写2 - 貔貅细节",
+    "prompt": "Extreme close-up of golden Pixiu charm on obsidian bracelet, \nintricate Chinese mythological creature details, \nprofessional jewelry photography, black background, \ndramatic side lighting highlighting texture.",
+    "aspect_ratio": "1:1",
+    "filename": "bracelet-pixiu-detail.jpg"
+  },
+  "male_protagonist": {
+    "description": "男主角James - 自信的商人",
+    "prompt": "Professional portrait of confident 40-year-old businessman named James, \nwearing smart casual attire, genuine smile, modern office background, \nnatural lighting, success and prosperity vibe. Authentic business portrait style.",
+    "aspect_ratio": "3:4",
+    "filename": "james-portrait.jpg"
+  },
+  "male_before": {
+    "description": "男主角转变前 - 失意",
+    "prompt": "Documentary style photo of man in his late 30s looking disappointed, \nsitting alone in dimly lit apartment, rain visible through window, \nmelancholic atmosphere, realistic lighting.",
+    "aspect_ratio": "16:9",
+    "filename": "james-before-unlucky.jpg"
+  },
+  "male_transformation": {
+    "description": "男主角转变后 - 签约场景",
+    "prompt": "Cinematic photo of professional man shaking hands in modern office, \nsigning business contract, confident posture, bright office lighting, \nsuccess and opportunity theme.",
+    "aspect_ratio": "16:9",
+    "filename": "james-success-handshake.jpg"
+  },
+  "energy_concept": {
+    "description": "能量概念图 - 光环和频率",
+    "prompt": "Abstract visualization of human energy field and frequency waves, \nperson silhouette surrounded by golden energy waves, \nsacred geometry patterns, cosmic background, \nmystical yet scientific aesthetic.",
+    "aspect_ratio": "16:9",
+    "filename": "energy-frequency-concept.jpg"
+  },
+  "feng_shui_ancient": {
+    "description": "风水古代图 - 中国传统",
+    "prompt": "Ancient Chinese feng shui diagram with mystical symbols, \ntraditional ink painting style merged with gold accents, \nyin-yang elements, dragon and Pixiu illustrations, \naged parchment texture, authentic historical feel.",
+    "aspect_ratio": "4:3",
+    "filename": "feng-shui-ancient-diagram.jpg"
+  },
+  "obsidian_stone": {
+    "description": "黑曜石原石 - 自然纹理",
+    "prompt": "Macro photography of raw volcanic obsidian stone, \nglossy black surface with natural patterns, \ndramatic lighting showing depth and texture, \ngeology specimen photography style.",
+    "aspect_ratio": "1:1",
+    "filename": "obsidian-raw-stone.jpg"
+  },
+  "lifestyle_wearing": {
+    "description": "生活场景 - 佩戴展示",
+    "prompt": "Natural lifestyle photo of person's wrist wearing black obsidian bracelet, \ncasual daily setting, reading book or working on laptop, \nsoft natural window light, cozy and relatable atmosphere.",
+    "aspect_ratio": "4:3",
+    "filename": "lifestyle-wearing-bracelet.jpg"
+  },
+  "wealth_symbols": {
+    "description": "财富象征 - 金币和宝石",
+    "prompt": "Artistic composition of Chinese wealth symbols: \ngold coins, jade ornaments, Pixiu figurines, \narranged on red silk fabric, cinematic golden lighting, \nluxury and prosperity theme.",
+    "aspect_ratio": "16:9",
+    "filename": "wealth-symbols-collection.jpg"
+  },
+  "packaging_gift": {
+    "description": "包装礼盒 - 精美展示",
+    "prompt": "Premium packaging photography of FengShui Bracelet in elegant gift box, \nluxury presentation with red and gold Chinese motifs, \nsoft studio lighting, high-end product photography.",
+    "aspect_ratio": "1:1",
+    "filename": "packaging-gift-box.jpg"
+  },
+  "testimonial_montage": {
+    "description": "用户评价蒙太奇 - 多人合影",
+    "prompt": "Collage-style image of diverse happy people wearing bracelets, \ndifferent ages and backgrounds, genuine smiles, \nvarious lifestyle settings, authentic customer photos aesthetic.",
+    "aspect_ratio": "16:9",
+    "filename": "testimonials-people-montage.jpg"
+  },
+  "urgency_timer": {
+    "description": "紧迫感 - 限时图标",
+    "prompt": "Dramatic close-up of countdown timer showing limited time, \nred and gold color scheme, sense of urgency, \nclean graphic design with Chinese cultural elements.",
+    "aspect_ratio": "4:3",
+    "filename": "urgency-limited-stock.jpg"
+  },
+  "guarantee_badge": {
+    "description": "保证徽章 - 信任标识",
+    "prompt": "Professional 3D render of golden guarantee badge with checkmark, \n'50% OFF' and 'Money Back Guarantee' text, \npremium metallic texture, trust and credibility design.",
+    "aspect_ratio": "1:1",
+    "filename": "guarantee-badge-50off.jpg"
+  }
+}

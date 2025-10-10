@@ -1,5 +1,6 @@
 /**
  * Checkout Page - Stripe Payment Element Integration
+ * Supports multiple pricing plans via Radio buttons
  */
 
 (async function() {
@@ -15,6 +16,55 @@
 
   let elements;
   let paymentElement;
+  let currentPlan = 'family'; // Default to family plan
+
+  // Get selected plan from radio buttons
+  function getSelectedPlan() {
+    const selectedRadio = document.querySelector('input[name="plan"]:checked');
+    return selectedRadio ? selectedRadio.value : 'family';
+  }
+
+  // Update summary when plan changes
+  function updateSummary() {
+    currentPlan = getSelectedPlan();
+    const planConfig = config.plans[currentPlan];
+
+    if (!planConfig) {
+      console.error('Invalid plan selected:', currentPlan);
+      return;
+    }
+
+    // Update summary
+    const summaryPlanName = document.getElementById('summary-plan-name');
+    const summaryPlanPrice = document.getElementById('summary-plan-price');
+    const summaryTotalPrice = document.getElementById('summary-total-price');
+    const buttonText = document.getElementById('button-text');
+
+    if (summaryPlanName) summaryPlanName.textContent = `${planConfig.quantity}x Celestial Decree${planConfig.quantity > 1 ? 's' : ''}`;
+    if (summaryPlanPrice) summaryPlanPrice.textContent = `$${planConfig.price}`;
+    if (summaryTotalPrice) summaryTotalPrice.textContent = `$${planConfig.price} USD`;
+    if (buttonText) buttonText.textContent = `Complete Order - $${planConfig.price}`;
+
+    // Reinitialize payment with new amount
+    if (elements) {
+      initialize();
+    }
+  }
+
+  // Listen to radio button changes
+  const radios = document.querySelectorAll('input[name="plan"]');
+  console.log('Found radio buttons:', radios.length);
+
+  radios.forEach(radio => {
+    radio.addEventListener('change', function() {
+      console.log('Radio changed to:', this.value);
+      updateSummary();
+    });
+  });
+
+  // Initialize summary on page load
+  console.log('Initializing summary with plan:', currentPlan);
+  updateSummary();
 
   // Initialize the payment flow
   initialize();
@@ -23,6 +73,8 @@
    * Initialize payment intent and create payment element
    */
   async function initialize() {
+    const planConfig = config.plans[currentPlan];
+
     try {
       // Call Worker API to create PaymentIntent
       const response = await fetch(config.workerUrl, {
@@ -31,10 +83,12 @@
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          amount: config.amount,
+          amount: planConfig.price * 100, // Convert to cents
           currency: config.currency,
           metadata: {
             product_name: config.productName,
+            plan: currentPlan,
+            quantity: planConfig.quantity,
           },
         }),
       });
